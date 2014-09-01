@@ -1,0 +1,38 @@
+<div ng-controller="GotyaaController">
+  <form name="gotYaaForm" ng-submit="submit()" ng-controller="GotyaaController" novalidate>
+    <h2>Add Message</h2>
+    <br>
+    <input type="text" name="smsContent" placeholder="type your message here" ng-model="smsContent" required>
+    <br>
+    <span class="error" ng-show="gotYaaForm.content.$error.required">Required!</span><br>
+    <br>
+    <span ng-bind="smsContent"></span>
+    <br>
+    <input type="submit" id="submit" value="Submit" /> 
+
+    <p> You have {{messages.length}} GotYaas</p>
+    
+    <h2 ng-repeat="message in messages"/>
+      {{message}} 
+      <button ng-click="removeMessage(message)">Delete GotYaa</button>
+      <div ng-controller="RecipientsController">
+        <form name="recipientForm" ng-submit="submit()" novalidate> 
+        <h4>Add Recipient</h4>
+        <input ng-model="recipient.name"  placeholder="name" type="text" name="" required>
+        <input ng-model="recipient.phone_number" placeholder="number" type="text">
+        <br>
+        <span ng-bind="recipient.name"></span> 
+        <span ng-bind="recipient.phone_number"></span> 
+        <br>
+        <input type="submit" id="submit" value="Submit" /> 
+        <li ng-repeat="recipents in recipients"></li>
+        
+        </form>
+      </div> 
+
+    </h2>
+  </form> 
+</div>
+  
+
+ 
