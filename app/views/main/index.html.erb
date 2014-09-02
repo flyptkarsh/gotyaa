@@ -1,5 +1,7 @@
 <div ng-controller="GotyaaController">
   <form name="gotYaaForm" ng-submit="submit()" ng-controller="GotyaaController" novalidate>
+    
+    <!-- form to add content to a new message -->
     <h2>Add Message</h2>
     <br>
     <input type="text" name="smsContent" placeholder="type your message here" ng-model="smsContent" required>
@@ -10,18 +12,25 @@
     <br>
     <input type="submit" id="submit" value="Submit" /> 
 
-    <p> You have {{messages.length}} GotYaas</p>
-    
-    <li ng-repeat="message in messages">
-      <h2>{{message}}</h2>
+    <!--show messages that have been added but not sent   -->
+    <p> You have {{messages.length}} pending GotYaas</p>
 
+    <div ng-repeat="message in messages">
+      <h2>{{message}}</h2>
       <button ng-click="removeMessage(message)">Delete GotYaa</button>
-      <ng-include src="'_addRecipient.html'"></ng-include>
-      
       <button>Send GotYaa</button>
-    </li>
+      <button>Add Recipients</button>
+    </div>
   </form> 
+  
+  <!-- form to add recipient -->
+  <div>
+    <ng-include src="'_addRecipient.html'"></ng-include> 
+  </div>
+
+<!-- status from database -->
 </div>
+<h2>GotYaa Status</h2>
 <div ng-controller="SentGotyaaController">
   <ng-include src="'_sentGotyaaStatus.html'"></ng-include>
 </div>

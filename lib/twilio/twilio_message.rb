@@ -12,6 +12,4 @@ module TwilioMessage
         :body => content,  
       })
     end 
-
-
 end

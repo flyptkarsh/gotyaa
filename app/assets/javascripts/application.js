@@ -24,13 +24,16 @@ var app = angular.module('GotyaaApp', ['ngResource', 'templates'])
   .config(['$resourceProvider', function ($resourceProvider) {}])
   // factory for making ajaxy angular calls to the message database
   .factory('GotYaas', ['$resource', function($resource) {
-    return $resource('http://localhost:3000/got_yaas', null,
-       {});
+    return $resource('http://localhost:3000/got_yaas');
   }])
   // controls adding the message and creating a new gotyaa 
-  .controller('GotyaaController', ['$scope', 'GotYaas', function($scope, GotYaas) {
-    var gotYaasPromise = GotYaas.query();
-    console.log(gotYaasPromise); 
+  .controller('GotyaaController', ['$scope', function($scope) {
+   
+    // // pulls the sent gotYaas from the database
+    // $scope.savedGotYaas = GotYaas.query(function(messages){
+    //   return messages 
+    //   }); 
+    
     $scope.messages = [];
 
     // adds the content to the message 
@@ -46,12 +49,22 @@ var app = angular.module('GotyaaApp', ['ngResource', 'templates'])
       var i = $scope.messages.indexOf(message); 
       $scope.messages.splice(i, 1);
     }; 
+
+    $scope.addRecipient =function(message){
+      console.log('clicked addRecipient'); 
+    };
+
+    $scope.sendMessage = function(message){
+      console.log('clicked addRecipient'); 
+    
+    }; 
+
   }])
+
   // factory to make angular ajaxy requests to database 
   .factory('Recipients', ['$resource', function($resource) {
    // makes http request to the server 
-   return $resource('http://localhost:3000/got_yaas/@/recipients', null,
-       {});
+   return $resource('http://localhost:3000/got_yaas/1/recipients');
   }]) 
   // controls adding the recipients to a new gotyaa 
   .controller('RecipientsController', ['$scope', function($scope) { 
@@ -67,12 +80,15 @@ var app = angular.module('GotyaaApp', ['ngResource', 'templates'])
     };
   }]) 
   // makes a get request to the back-end for message status, displays status
-  .controller('SentGotyaaController', ['$scope', 'Recipients', function($scope, Recipients) { 
+  .controller('SentGotyaaController', ['$scope', 'Recipients','GotYaas', function($scope, Recipients, GotYaas) { 
+    // pulls the sent gotYaas from the database
+    $scope.savedGotYaas = GotYaas.query(function(messages){
+      return messages 
+      }); 
     //returns all recipients in a promise 
-    var recipientsPromise = Recipients.query(); 
-    console.log(recipientsPromise); 
+    $scope.recipients = Recipients.query(function(recipients){
+      return recipients 
+      });  
+
   }
 ]); 
-
-
-

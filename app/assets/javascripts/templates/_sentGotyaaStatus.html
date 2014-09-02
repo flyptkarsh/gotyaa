@@ -1,6 +1,17 @@
-<h2>GotYaa Status<h2>
-<div ng-controller="SentGotyaaController">
-  <li>{{recipients}}</li>
 
+<div ng-controller="SentGotyaaController">
+  <!-- gotYaas from the database -->
+<p>You have {{savedGotYaas.length}} sent GotYaas</p>
+
+<div ng-repeat="Resource in savedGotYaas">
+<h3>{{Resource.content}}</h3> 
+date: {{Resource.created_at | date: format: medium}}
+<li ng-repeat="Resource in recipients">
+  {{Resource.name}}
+  {{Resource.message_sent}}
+  {{Resource.has_responded}}
+</li>
 
 </div>
+</div>
+
