@@ -12,46 +12,60 @@
 //= require jquery
 //= require jquery_ujs
 //= require angular
+//= require angular-animate
+//= require angular-resource
 //= require angular-rails-templates
 //= require_tree ./templates
 //= require_tree .
 
 
-var app = angular.module('GotyaaApp', ['templates']);
-
-app.controller('GotyaaController', ['$scope', function($scope) {
+var app = angular.module('GotyaaApp', ['ngResource', 'templates'])
+  .config(['$resourceProvider', function ($resourceProvider) {}])
+  .factory('Recipients', ['$resource', function($resource) {
+   return $resource('http://localhost:3000/got_yaas/@/recipients', null,
+       {});
+   }])
+  // controls adding the message and creating a new gotyaa 
+  .controller('GotyaaController', ['$scope', function($scope) {
     
-    $scope.messages = [];
-   
-    
-    $scope.submit = function() {
-      if ($scope.smsContent) {
-        $scope.messages.push(this.smsContent);
-        $scope.smsContent = '';
-      }
-    };
-    $scope.removeMessage = function(message) {
-      console.log('clicked removeMessage'); 
-      var i = $scope.messages.indexOf(message); 
-      $scope.messages.splice(i, 1);
-    }; 
-}]);
+  $scope.messages = [];
 
-app.controller('RecipientsController', ['$scope', function($scope) { 
-
-    function RecipientsController() {
-    $scope.recipients = [];
-    this.recipient = [
-      { name: 'bob', phone_number: '408 555 1212' }
-    ]; 
-  }; 
-
+  // adds the content to the message 
   $scope.submit = function() {
-    console.log('RecipientsController submit clicked'); 
-    if ($scope.recipient) {
-      $scope.recipients.push(this.recipient);
-      $scope.recipient = ''; 
+    if ($scope.smsContent) {
+      $scope.messages.push(this.smsContent);
+      $scope.smsContent = '';
     }
   };
-}]);  
+
+  // deletes a gotyaa before it is sent 
+  $scope.removeMessage = function(message) {
+    console.log('clicked removeMessage'); 
+    var i = $scope.messages.indexOf(message); 
+    $scope.messages.splice(i, 1);
+  }; 
+
+  }]) 
+  // controls adding the recipients to a new gotyaa 
+  .controller('RecipientsController', ['$scope', function($scope) { 
+  
+  $scope.recipients = [];
+
+  $scope.submitRecipient = function() {
+  console.log('RecipientsController submit clicked'); 
+  if ($scope.recipient) {
+    $scope.recipients.push(this.recipient);
+    $scope.recipient = ''; 
+  }
+  };
+  }]) 
+  // makes a get request to the back-end for message status, displays status
+  .controller('SentGotyaaController', ['$scope', 'Recipients', function($scope, Recipients) { 
+    var recipientsPromise = Recipients.query(); 
+    var recipientsData = recipientsPromise.data; 
+    console.log(recipientsData); 
+  }
+]); 
+
+
 

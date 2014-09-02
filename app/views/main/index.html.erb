@@ -12,27 +12,23 @@
 
     <p> You have {{messages.length}} GotYaas</p>
     
-    <h2 ng-repeat="message in messages"/>
-      {{message}} 
-      <button ng-click="removeMessage(message)">Delete GotYaa</button>
-      <div ng-controller="RecipientsController">
-        <form name="recipientForm" ng-submit="submit()" novalidate> 
-        <h4>Add Recipient</h4>
-        <input ng-model="recipient.name"  placeholder="name" type="text" name="" required>
-        <input ng-model="recipient.phone_number" placeholder="number" type="text">
-        <br>
-        <span ng-bind="recipient.name"></span> 
-        <span ng-bind="recipient.phone_number"></span> 
-        <br>
-        <input type="submit" id="submit" value="Submit" /> 
-        <li ng-repeat="recipents in recipients"></li>
-        
-        </form>
-      </div> 
+    <li ng-repeat="message in messages">
+      <h2>{{message}}</h2>
 
-    </h2>
+      <button ng-click="removeMessage(message)">Delete GotYaa</button>
+      <ng-include src="'_addRecipient.html'"></ng-include>
+      
+      <button>Send GotYaa</button>
+    </li>
   </form> 
 </div>
-  
+<div ng-controller="SentGotyaaController">
+  <ng-include src="'_sentGotyaaStatus.html'"></ng-include>
+</div>
+
+
+
+
+
 
  
