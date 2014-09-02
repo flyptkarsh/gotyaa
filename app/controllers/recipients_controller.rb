@@ -1,5 +1,4 @@
 class RecipientsController < ApplicationController
-
   def index
     render json: Recipient.all
   end

@@ -40,7 +40,6 @@ var app = angular.module('GotyaaApp', ['ngResource', 'templates'])
         $scope.smsContent = '';
       }
     };
-
     // deletes a gotyaa before it is sent 
     $scope.removeMessage = function(message) {
       console.log('clicked removeMessage'); 
