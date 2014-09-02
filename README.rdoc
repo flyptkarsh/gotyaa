@@ -1,21 +1,21 @@
 == README
-GotYah!
+GotYah!:
 GotYah is a convenient way to send a text conveying vital information to a large group of people. 
 
 Not only can you send a text to a group, you can also monitor who in the group has received and acknowledged the message. 
 
-System dependencies
+System dependencies:
 Devise
 CanCanCan 
 Animate.css
 Bower Rails 
 Angular Rails Templates 
 
-Entity Relationship Diagram 
+Entity Relationship Diagram: 
 'https://www.lucidchart.com/invitations/accept/de1ec7da-b380-47a8-af71-1ccf1fc6d150'
 
-User Stories 
+User Stories: 
 https://trello.com/b/yzd2sV9h/gotyah
 
-Heroku App 
+Heroku App:
 http://igotyaa.herokuapp.com/
