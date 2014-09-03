@@ -18,8 +18,8 @@
     <div ng-repeat="message in messages">
       <h2>{{message}}</h2>
       <button ng-click="removeMessage(message)">Delete GotYaa</button>
-      <button>Send GotYaa</button>
-      <button>Add Recipients</button>
+      <button ng-click="saveMessage(message, <%= current_user.id %>)">Save GotYaa</button>
+      <button ng-click="addRecipient(message)">Add Recipients</button>
     </div>
   </form> 
   
@@ -28,12 +28,29 @@
     <ng-include src="'_addRecipient.html'"></ng-include> 
   </div>
 
+
 <!-- status from database -->
 </div>
 <h2>GotYaa Status</h2>
+Current User Id: <%= current_user.id %>
 <div ng-controller="SentGotyaaController">
-  <ng-include src="'_sentGotyaaStatus.html'"></ng-include>
+    <!-- gotYaas from the database -->
+  
+  <div ng-repeat="Resource in savedGotYaas| filter:{ user_id: <%= current_user.id %>}">
+  <h3>{{Resource.content}}</h3> 
+  date: {{Resource.created_at | date: format: medium}}
+
+
+  <li ng-repeat="Resource in recipients | filter: {got_yaa_id: Resource.id }">
+    {{Resource.name}}
+    {{Resource.message_sent}}
+    {{Resource.has_responded}}
+
+  </li>
+  </div>
+
 </div>
+
 
 
 

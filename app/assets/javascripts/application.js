@@ -11,6 +11,7 @@
 // about supported directives.
 //= require jquery
 //= require jquery_ujs
+
 //= require angular
 //= require angular-animate
 //= require angular-resource
@@ -27,7 +28,7 @@ var app = angular.module('GotyaaApp', ['ngResource', 'templates'])
     return $resource('http://localhost:3000/got_yaas');
   }])
   // controls adding the message and creating a new gotyaa 
-  .controller('GotyaaController', ['$scope', function($scope) {
+  .controller('GotyaaController', ['$scope', 'Recipients','GotYaas', function($scope, Recipients, GotYaas) {
    
     // // pulls the sent gotYaas from the database
     // $scope.savedGotYaas = GotYaas.query(function(messages){
@@ -54,9 +55,13 @@ var app = angular.module('GotyaaApp', ['ngResource', 'templates'])
       console.log('clicked addRecipient'); 
     };
 
-    $scope.sendMessage = function(message){
-      console.log('clicked addRecipient'); 
-    
+    $scope.saveMessage = function(message, current_user_id ){
+       
+       var newGotyaa = new GotYaas(); 
+       newGotyaa.$save();
+       newGotyaa.user_id = current_user_id; 
+       newGotyaa.content = message; 
+       
     }; 
 
   }])
@@ -64,27 +69,33 @@ var app = angular.module('GotyaaApp', ['ngResource', 'templates'])
   // factory to make angular ajaxy requests to database 
   .factory('Recipients', ['$resource', function($resource) {
    // makes http request to the server 
-   return $resource('http://localhost:3000/got_yaas/1/recipients');
+   return $resource('http://localhost:3000/recipients');
   }]) 
   // controls adding the recipients to a new gotyaa 
-  .controller('RecipientsController', ['$scope', function($scope) { 
-    
+  .controller('RecipientsController', ['$scope', 'Recipients','GotYaas', function($scope, Recipients, GotYaas) { 
     $scope.recipients = [];
     //submits a new recipient in the browser 
-    $scope.submitRecipient = function() {
-    console.log('RecipientsController submit clicked'); 
+    $scope.submitRecipient = function(recipient, current_user_id) {
+    console.log('RecipientsController submit clicked');
+        var newRecipient = new Recipients(); 
+       newRecipient.name = $scope.recipient.name; 
+       newRecipient.phone_number = $scope.recipient.phone_number; 
+       newRecipient.$save();
     if ($scope.recipient) {
       $scope.recipients.push(this.recipient);
       $scope.recipient = ''; 
+
     }
     };
   }]) 
+  
   // makes a get request to the back-end for message status, displays status
   .controller('SentGotyaaController', ['$scope', 'Recipients','GotYaas', function($scope, Recipients, GotYaas) { 
     // pulls the sent gotYaas from the database
     $scope.savedGotYaas = GotYaas.query(function(messages){
       return messages 
       }); 
+
     //returns all recipients in a promise 
     $scope.recipients = Recipients.query(function(recipients){
       return recipients 

@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
   
 
-  resources :got_yaas do
-    resources :recipients
-  end 
+  resources :got_yaas 
+  resources :recipients
+  
   
   devise_for :users
   get 'main/index'

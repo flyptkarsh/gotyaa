@@ -14,7 +14,7 @@ module Igotyaa
     # -- all .rb files in that directory are automatically loaded.
     config.assets.paths << Rails.root.join('vendor', 'assets', 'components')
     Rails.application.config.assets.precompile += %w( main.js )
-    
+    config.action_controller.allow_forgery_protection = false
     #attaches my twilio module to the controllers
     config.autoload_paths += Dir["#{Rails.root}/lib/twilio"]
 

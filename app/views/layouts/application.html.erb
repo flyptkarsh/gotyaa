@@ -8,11 +8,15 @@
     <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
+
 <body ng-app='GotyaaApp'>
 <ul class="hmenu">
   <%= render 'devise/menu/registration_items' %>
   <%= render 'devise/menu/login_items' %>
 </ul>
+<% if user_signed_in? %>
+  <div>Signed in as <%= current_user.email %></div>
+<% end %>
 <%= yield %>
 
 </body>
