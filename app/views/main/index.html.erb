@@ -29,10 +29,10 @@
 <div class='sent'>
   <h2>GotYaa Status</h2>
 </div>
-<div class='sent'ng-controller="SentGotyaaController">
+<div ng-controller="SentGotyaaController">
   <button class='enjoy-css' ng-click="checkForResponses()">press me</button>
   <!-- gotYaas from the database -->
-  <div ng-mouseover="thisGotyaa(Resource.id, Resource.content)" ng-repeat="Resource in savedGotYaas| filter:{ user_id: <%= current_user.id %>}">
+  <div class='sent' ng-mouseover="thisGotyaa(Resource.id, Resource.content)" ng-repeat="Resource in savedGotYaas| filter:{ user_id: <%= current_user.id %>}">
     <h3>{{Resource.content}}</h3> 
     date: {{Resource.created_at | date: format: medium}}
 
