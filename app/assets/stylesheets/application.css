@@ -14,20 +14,58 @@
  *= require_self
  */
 ul.hmenu {
-  list-style: none; 
-  margin: 0 0 2em;
-  padding: 0;
+  text-decoration: none; 
+  display: inline-block;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  position: relative;
+  cursor: pointer;
+  top: 0;
+  padding: 0 22px;
+  border: 4px solid rgb(255,255,255);
+  font: normal normal bold 20px/50px Arial, Helvetica, sans-serif;
+  color: #FFAE00; 
+  text-align: center;
+  text-transform: uppercase;
+  -o-text-overflow: clip;
+  text-overflow: clip;
+  background: rgb(255, 255, 255); 
 }
 
 ul.hmenu li {
   display: inline;  
 }
+
+body {
+  font: normal normal bold 20px/50px Arial, Helvetica, sans-serif;
+  background-color: #FFAE00;
+  color: rgb(112, 112, 112);
+}
+
+h2 {
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  margin: 0 auto;
+  padding: -5px;
+  border: none;
+  font: normal 44px/normal "Anton", Helvetica, sans-serif;
+  color: rgb(112, 112, 112);
+  text-align: center;
+  text-transform: uppercase;
+  -o-text-overflow: clip;
+  text-overflow: clip;
+  letter-spacing: 10px;
+  text-shadow: 4px 4px 0 rgb(238,238,238) , 6px 6px 0 rgb(112,112,112) ;
+}
+
 .board-game {
   -webkit-box-sizing: content-box;
   -moz-box-sizing: content-box;
   box-sizing: content-box;
   border: none;
-  font: normal 84px/normal "Anton", Helvetica, sans-serif;
+  font: normal 100px/normal "Anton", Helvetica, sans-serif;
   color: rgb(255, 255, 255);
   text-align: center;
   -o-text-overflow: clip;
@@ -57,3 +95,44 @@ ul.hmenu li {
   color: #FFAE00;
   background: #ffffff;
 }
+.sent {
+  margin-top: 20px; 
+  padding: 0 22px;
+  background-color: #ffffff;
+  max-width: 450px;
+  border: 2px solid transparent;
+  -moz-border-radius: 18px;
+  -webkit-border-radius: 18px;
+  border-radius: 18px;
+  /*IE 7 AND 8 DO NOT SUPPORT BORDER RADIUS*/
+}
+
+.input-text{
+  display: inline-block;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  padding: 6px 20px;
+  border: none;
+  -webkit-border-radius: 0 / 54px;
+  border-radius: 0 / 54px;
+  font: normal 21px/normal "Lato", Helvetica, sans-serif;
+  color: rgba(0,0,0,1);
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  background: rgba(252,252,252,1);
+}
+.columns{
+  -webkit-column-count: 3;
+  -webkit-column-gap: 10px; 
+  -webkit-column-rule: 0px dotted black;
+  -moz-column-count: 2;
+  -moz-column-gap: 25px;  
+  -moz-column-rule: 0px dotted black;
+  column-count: 2;
+  column-gap: 25px; 
+  column-rule: 0px dotted black;
+  column-fill: initial;
+  min-height: 1000px; 
+}
+

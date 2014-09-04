@@ -14,6 +14,7 @@
 </head>
 
 <body ng-app='GotyaaApp'>
+<div class="columns">
 <h1 class="board-game">I Got Yaa</h1>
 <ul class="hmenu">
   <%= render 'devise/menu/registration_items' %>
@@ -23,6 +24,6 @@
   <div>Signed in as <%= current_user.email %></div>
 <% end %>
 <%= yield %>
-
+</div>
 </body>
 </html>

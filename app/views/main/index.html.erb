@@ -1,22 +1,22 @@
 <div ng-controller="GotyaaController">
-  <form name="gotYaaForm" ng-submit="submit()" ng-controller="GotyaaController" novalidate>
+  <form class='sent' name="gotYaaForm" ng-submit="submit()" ng-controller="GotyaaController" novalidate>
     
     <!-- form to add content to a new message -->
     <h2>Add Message</h2>
     <br>
-    <input type="text" name="smsContent" placeholder="type your message here" ng-model="smsContent" required>
+    <input type="text" class="input-text" name="smsContent" placeholder="type your message here" ng-model="smsContent" required>
     <br>
     <span class="error" ng-show="gotYaaForm.content.$error.required">Required!</span><br>
     <br>
     <span ng-bind="smsContent"></span>
     <br>
-    <input class='enjoy-css'type="submit" id="submit" value="Submit" /> 
+    <input class='enjoy-css'type="submit" id="submit" value="Add Message" /> 
 
     <!--show messages that have been added but not sent   -->
     <p> You have {{messagesPending.length}} pending GotYaas</p>
 
     <div ng-repeat="message in messagesPending">
-      <h2>{{message}}</h2>
+      <h3>{{message}}</h3>
       <button class='enjoy-css' ng-click="removeMessage(message)">Delete GotYaa</button>
       <button class='enjoy-css' ng-click="saveMessage(message, <%= current_user.id %>)">Save GotYaa</button>
       <button class='enjoy-css' ng-click="addRecipient(message)">Add Recipients</button>
@@ -28,9 +28,10 @@
 
 <!-- status from database -->
 </div>
-<h2>GotYaa Status</h2>
-Current User Id: <%= current_user.id %>
-<div ng-controller="SentGotyaaController">
+<div class='sent'>
+  <h2>GotYaa Status</h2>
+</div>
+<div class='sent'ng-controller="SentGotyaaController">
   <button class='enjoy-css' ng-click="checkForResponses()">press me</button>
   <!-- gotYaas from the database -->
   <div ng-mouseover="thisGotyaa(Resource.id, Resource.content)" ng-repeat="Resource in savedGotYaas| filter:{ user_id: <%= current_user.id %>}">
@@ -51,8 +52,8 @@ Current User Id: <%= current_user.id %>
         <form name="recipient" ng-controller='SentGotyaaController' ng-submit="submitRecipient(recipient)" novalidate>
 
           <h4>Add Recipient</h4>
-          <input ng-model="recipient.name" placeholder="name" type="text" required></input>
-          <input ng-model="recipient.phone_number" placeholder="number" type="number" ng-minlength="10" ng-maxlength="10" required>
+          <input ng-model="recipient.name" placeholder="name" type="text" class="input-text" required></input>
+          <input ng-model="recipient.phone_number" placeholder="number" type="number" class="input-text"  ng-minlength="10" ng-maxlength="10" required>
           
           <!-- error messages -->
           <span class="error" ng-show="recipient.recipient.phone_number.$error.minlength">
@@ -73,6 +74,7 @@ Current User Id: <%= current_user.id %>
     </div>
   </div> 
 </div>
+ 
 
 
 
