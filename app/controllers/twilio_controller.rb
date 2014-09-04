@@ -16,15 +16,14 @@ class TwilioController < ApplicationController
   end 
 
   def response
-    # binding.pry 
-    # account_sid = ENV["TWILIO_SID"]
-    # auth_token = ENV["TWILIO_TOKEN"]
-    # # set up a client to talk to the Twilio REST API 
-    # @client = Twilio::REST::Client.new account_sid, auth_token 
+    binding.pry 
+    account_sid = ENV["TWILIO_SID"]
+    auth_token = ENV["TWILIO_TOKEN"]
+    # set up a client to talk to the Twilio REST API 
+    @client = Twilio::REST::Client.new account_sid, auth_token 
 
-    # @client.account.messages.list({ from: '+17149152596', }).each do |message| 
-    #   puts message.body 
-    end
+    @client.account.messages.list({ from: '+17149152596', }).each do |message| 
+      puts message.body 
     end
   end 
 end
