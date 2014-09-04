@@ -88,15 +88,6 @@ var app = angular.module('GotyaaApp', ['ngResource', 'templates'])
       currentDOMGotYaaContent = gotYaaContent;  
     };
 
-    // $scope.sendSMS = function(number) {
-    //   var newTwilioSMSParams = new TwilioMessage(); 
-    //   newTwilioSMSParams.from = '+16467621226'; 
-    //   newTwilioSMSParams.to = number;
-    //   newTwilioSMSParams.body = currentDOMGotYaaContent; 
-    //   console.log(newTwilioSMSParams); 
-    //   newTwilioSMSParams.$save();
-    // }; 
-
     // submits and texts the recipient
     $scope.submitRecipient = function(recipient) {
     console.log(recipient, currentDOMGotYaaId);
@@ -117,10 +108,14 @@ var app = angular.module('GotyaaApp', ['ngResource', 'templates'])
       newRecipient.message_sent = true; 
       newRecipient.$save();
       $scope.recipient= []; 
+      //returns all recipients in a promise 
+      $scope.recipients = Recipients.query(function(recipients){
+      return recipients 
+      }); 
     };
     // checks Twilio for any new messages 
     $scope.checkForResponses = function(){
-      var newTwilioResponse = TwilioResponse.query(); 
+      var newTwilioResponse = new TwilioResponse(); 
       console.log(newTwilioResponse);  
     }; 
   }
