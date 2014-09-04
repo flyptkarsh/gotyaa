@@ -27,8 +27,8 @@
 <div ng-controller="SentGotyaaController">
   <button class='enjoy-css' ng-click="checkForResponses()">press me</button>
   <!-- gotYaas from the database -->
-  <article class='sent'>
   <div ng-mouseover="thisGotyaa(Resource.id, Resource.content)" ng-repeat="Resource in savedGotYaas| filter:{ user_id: <%= current_user.id %>}">
+    <article class='sent'>
     <h3>{{Resource.content}}</h3> 
     date: {{Resource.created_at | date: format: medium}}
     <p ng-repeat="Resource in recipients | filter: {got_yaa_id: Resource.id } | orderBy: 'created_at':true">
@@ -57,8 +57,8 @@
             <input class='enjoy-css'type="submit" id="submit" value="Add Name"/> 
           </div>
           </li>
+         </article> 
         </form>
-      </article> 
     </div>
   </div> 
 </div>
