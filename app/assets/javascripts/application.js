@@ -16,7 +16,6 @@
 //= require angular-animate
 //= require angular-resource
 //= require angular-rails-templates
-//= require_tree ./templates
 //= require_tree .
 
 // creates the entire angular application 

@@ -1,26 +1,25 @@
     <!-- form to add recipient -->
-  <div>
-    <form name="recipient" ng-controller='SentGotyaaController' ng-submit="submitRecipient(recipient)" novalidate>
+<div>
+  <form name="recipient" ng-controller='SentGotyaaController' ng-submit="submitRecipient(recipient)" novalidate>
 
-      <h4>Add Recipient</h4>
-      <input ng-model="recipient.name" placeholder="name" type="text" required></input>
-      <input ng-model="recipient.phone_number" placeholder="number" type="number" ng-minlength="10" ng-maxlength="10" required>
-      
-      <!-- error messages -->
-      <span class="error" ng-show="recipient.recipient.phone_number.$error.minlength">
-          Too short, input a ten digit mobile number.</span>
-      <span class="error" ng-show="recipient.recipient.phone_number.$error.maxlength">
-          Too long, only ten digits please.. no country code.</span><br>
-      
-      <!-- user preview -->
-      </input>
-      <span ng-bind="recipient.name"></span><br> 
-      <span ng-bind="recipient.phone_number"></span> 
-      <br>
-      <input type="submit" id="submit" value="Add Name"/> 
+    <h4>Add Recipient</h4>
+    <input ng-model="recipient.name" placeholder="name" type="text" required></input>
+    <input ng-model="recipient.phone_number" placeholder="number" type="number" ng-minlength="10" ng-maxlength="10" required>
+    
+    <!-- error messages -->
+    <span class="error" ng-show="recipient.recipient.phone_number.$error.minlength">
+        Too short, input a ten digit mobile number.</span>
+    <span class="error" ng-show="recipient.recipient.phone_number.$error.maxlength">
+        Too long, only ten digits please.. no country code.</span><br>
+    
+    <!-- user preview -->
+    </input>
+    <span ng-bind="recipient.name"></span><br> 
+    <span ng-bind="recipient.phone_number"></span> 
+    <br>
+    <input type="submit" id="submit" value="Add Name"/> 
 
-      </li>
-    </form>
+    </li>
+  </form>
 </div> 
 
-  </div>
