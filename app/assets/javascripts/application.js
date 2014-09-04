@@ -28,78 +28,107 @@ var app = angular.module('GotyaaApp', ['ngResource', 'templates'])
     return $resource('http://localhost:3000/got_yaas');
   }])
   // controls adding the message and creating a new gotyaa 
-  .controller('GotyaaController', ['$scope', 'Recipients','GotYaas', function($scope, Recipients, GotYaas) {
+  .controller('GotyaaController', ['$scope', 'Recipients','GotYaas', function($scope, Recipients, GotYaas, TwilioMessage) {
    
-    // // pulls the sent gotYaas from the database
-    // $scope.savedGotYaas = GotYaas.query(function(messages){
-    //   return messages 
-    //   }); 
-    
-    $scope.messages = [];
+    $scope.messagesPending = [];
 
     // adds the content to the message 
     $scope.submit = function() {
       if ($scope.smsContent) {
-        $scope.messages.push(this.smsContent);
+        $scope.messagesPending.push(this.smsContent);
         $scope.smsContent = '';
       }
     };
     // deletes a gotyaa before it is sent 
     $scope.removeMessage = function(message) {
       console.log('clicked removeMessage'); 
-      var i = $scope.messages.indexOf(message); 
-      $scope.messages.splice(i, 1);
+      var i = $scope.messagesPending.indexOf(message); 
+      $scope.messagesPending.splice(i, 1);
     }; 
-
-    $scope.addRecipient =function(message){
-      console.log('clicked addRecipient'); 
-    };
-
+    // saves message to the db
     $scope.saveMessage = function(message, current_user_id ){
-       
-       var newGotyaa = new GotYaas(); 
-       newGotyaa.$save();
-       newGotyaa.user_id = current_user_id; 
-       newGotyaa.content = message; 
-       
-    }; 
-
+      console.log("save message clicked"); 
+      var newGotyaa = new GotYaas(); 
+      newGotyaa.user_id = current_user_id; 
+      newGotyaa.content = message; 
+      newGotyaa.$save();
+      $scope.messages = GotYaas.query(function(messages){
+        return messages 
+        }); 
+    };
+    $scope 
   }])
-
   // factory to make angular ajaxy requests to database 
   .factory('Recipients', ['$resource', function($resource) {
-   // makes http request to the server 
+   // makes HTTP request to the server 
    return $resource('http://localhost:3000/recipients');
-  }]) 
-  // controls adding the recipients to a new gotyaa 
-  .controller('RecipientsController', ['$scope', 'Recipients','GotYaas', function($scope, Recipients, GotYaas) { 
-    $scope.recipients = [];
-    //submits a new recipient in the browser 
-    $scope.submitRecipient = function(recipient, current_user_id) {
-    console.log('RecipientsController submit clicked');
-        var newRecipient = new Recipients(); 
-       newRecipient.name = $scope.recipient.name; 
-       newRecipient.phone_number = $scope.recipient.phone_number; 
-       newRecipient.$save();
-    if ($scope.recipient) {
-      $scope.recipients.push(this.recipient);
-      $scope.recipient = ''; 
-
-    }
-    };
-  }]) 
-  
+  }])
+  .factory('TwilioMessage', ['$resource', function($resource) {
+   // makes HTTP request to the server 
+   return $resource('http://localhost:3000/twilio/message');
+  }])
+  .factory('TwilioResponse', ['$resource', function($resource) {
+   // makes HTTP request to the server 
+   return $resource('http://localhost:3000/twilio/response');
+  }])     
   // makes a get request to the back-end for message status, displays status
-  .controller('SentGotyaaController', ['$scope', 'Recipients','GotYaas', function($scope, Recipients, GotYaas) { 
+  .controller('SentGotyaaController', ['$scope', 'Recipients','GotYaas', '$interval', 'TwilioMessage', function($scope, Recipients, GotYaas, $interval, TwilioMessage) { 
+
     // pulls the sent gotYaas from the database
     $scope.savedGotYaas = GotYaas.query(function(messages){
       return messages 
       }); 
-
     //returns all recipients in a promise 
     $scope.recipients = Recipients.query(function(recipients){
       return recipients 
-      });  
+      }); 
+    
+    // returns the ID of the clicked gotyaa
+    $scope.thisGotyaa = function(gotYaaId, gotYaaContent) { 
+      currentDOMGotYaaId = gotYaaId; 
+      currentDOMGotYaaContent = gotYaaContent; 
+      console.log(currentDOMGotYaaContent, currentDOMGotYaaId); 
+    };
+
+    // $scope.sendSMS = function(number) {
+    //   var newTwilioSMSParams = new TwilioMessage(); 
+    //   newTwilioSMSParams.from = '+16467621226'; 
+    //   newTwilioSMSParams.to = number;
+    //   newTwilioSMSParams.body = currentDOMGotYaaContent; 
+    //   console.log(newTwilioSMSParams); 
+    //   newTwilioSMSParams.$save();
+    // }; 
+
+    // submits and texts the recipient
+    $scope.submitRecipient = function(recipient) {
+    console.log(recipient, currentDOMGotYaaId);
+      var newRecipient = new Recipients(); 
+       newRecipient.name = $scope.recipient.name; 
+       // formatting the phone number for twilio
+       newRecipient.phone_number = ('+1' + $scope.recipient.phone_number); 
+       newRecipient.got_yaa_id = currentDOMGotYaaId; 
+       newRecipient.has_responded = false; 
+       // sending the Twilio SMS 
+      var newTwilioSMSParams = new TwilioMessage(); 
+      newTwilioSMSParams.from = '+16467621226'; 
+      newTwilioSMSParams.to = newRecipient.phone_number; 
+      newTwilioSMSParams.body = currentDOMGotYaaContent; 
+      console.log(newTwilioSMSParams); 
+      newTwilioSMSParams.$save();
+
+      newRecipient.message_sent = true; 
+      newRecipient.$save();
+       
+       $scope.recipient= []; 
+       $scope.recipients = Recipients.query(function(recipients){
+        return recipients 
+        });
+        $scope.savedGotYaas = GotYaas.query(function(messages){
+        return messages 
+        });
+
+
+    }; 
 
   }
 ]); 

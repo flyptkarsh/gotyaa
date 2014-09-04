@@ -1,5 +1,5 @@
 class GotYaasController < ApplicationController
-
+  protect_from_forgery :except => [:index, :create]
   def index
     render json: GotYaa.all
   end

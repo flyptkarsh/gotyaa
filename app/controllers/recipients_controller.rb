@@ -1,4 +1,5 @@
 class RecipientsController < ApplicationController
+  protect_from_forgery :except => [:index, :create]
   def index
     render json: Recipient.all
   end
@@ -23,6 +24,6 @@ class RecipientsController < ApplicationController
   private
     # Never trust parameters from the scary internet, only allow the white list through.
     def recipient_params
-      params.require(:recipient).permit(:name, :phone_number, :email, :message_sent, :has_responded)
+      params.require(:recipient).permit(:name, :phone_number, :got_yaa_id, :email, :message_sent, :has_responded)
     end
 end

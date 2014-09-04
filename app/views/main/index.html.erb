@@ -13,9 +13,9 @@
     <input type="submit" id="submit" value="Submit" /> 
 
     <!--show messages that have been added but not sent   -->
-    <p> You have {{messages.length}} pending GotYaas</p>
+    <p> You have {{messagesPending.length}} pending GotYaas</p>
 
-    <div ng-repeat="message in messages">
+    <div ng-repeat="message in messagesPending">
       <h2>{{message}}</h2>
       <button ng-click="removeMessage(message)">Delete GotYaa</button>
       <button ng-click="saveMessage(message, <%= current_user.id %>)">Save GotYaa</button>
@@ -23,10 +23,7 @@
     </div>
   </form> 
   
-  <!-- form to add recipient -->
-  <div>
-    <ng-include src="'_addRecipient.html'"></ng-include> 
-  </div>
+
 
 
 <!-- status from database -->
@@ -34,22 +31,26 @@
 <h2>GotYaa Status</h2>
 Current User Id: <%= current_user.id %>
 <div ng-controller="SentGotyaaController">
-    <!-- gotYaas from the database -->
   
-  <div ng-repeat="Resource in savedGotYaas| filter:{ user_id: <%= current_user.id %>}">
-  <h3>{{Resource.content}}</h3> 
-  date: {{Resource.created_at | date: format: medium}}
+  <!-- gotYaas from the database -->
+  <div ng-mouseover="thisGotyaa(Resource.id, Resource.content)" ng-repeat="Resource in savedGotYaas| filter:{ user_id: <%= current_user.id %>}">
+    <h3>{{Resource.content}}</h3> 
+    date: {{Resource.created_at | date: format: medium}}
 
 
-  <li ng-repeat="Resource in recipients | filter: {got_yaa_id: Resource.id }">
-    {{Resource.name}}
-    {{Resource.message_sent}}
-    {{Resource.has_responded}}
+    <li ng-repeat="Resource in recipients | filter: {got_yaa_id: Resource.id } | orderBy: 'created_at':true">
+      {{Resource.name}}
+      {{Resource.message_sent}}
+      {{Resource.has_responded}}
+    </li>
 
-  </li>
-  </div>
-
+    <!-- form to add recipient -->
+    <div>
+      <ng-include src="'_addRecipient.html'"></ng-include> 
+    </div>
+  </div> 
 </div>
+
 
 
 

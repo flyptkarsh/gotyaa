@@ -1,13 +1,18 @@
 Rails.application.routes.draw do
   
 
+  post 'twilio/message'
+
+  get 'twilio/response'
+
   resources :got_yaas 
   resources :recipients
+ 
   
   
   devise_for :users
-  get 'main/index'
-
+  get 'main/index' 
+  
   get 'welcome/index'
   root 'welcome#index'
 
