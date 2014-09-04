@@ -125,17 +125,6 @@ h2 {
   border-radius: 18px;
   /*IE 7 AND 8 DO NOT SUPPORT BORDER RADIUS*/
 }
-input{
-  margin-top: 20px; 
-  padding: 0 22px;
-  background-color: #FFAE00;
-  max-width: 600px;
-  border: 2px solid transparent;
-  -moz-border-radius: 18px;
-  -webkit-border-radius: 18px;
-  border-radius: 18px;
-  /*IE 7 AND 8 DO NOT SUPPORT BORDER RADIUS*/
-}
 
 .input-text{
   display: inline-block;
