@@ -85,8 +85,7 @@ var app = angular.module('GotyaaApp', ['ngResource', 'templates'])
     // returns the ID of the clicked gotyaa
     $scope.thisGotyaa = function(gotYaaId, gotYaaContent) { 
       currentDOMGotYaaId = gotYaaId; 
-      currentDOMGotYaaContent = gotYaaContent; 
-      console.log(currentDOMGotYaaContent, currentDOMGotYaaId); 
+      currentDOMGotYaaContent = gotYaaContent;  
     };
 
     // $scope.sendSMS = function(number) {
@@ -97,7 +96,7 @@ var app = angular.module('GotyaaApp', ['ngResource', 'templates'])
     //   console.log(newTwilioSMSParams); 
     //   newTwilioSMSParams.$save();
     // }; 
-    
+
     // submits and texts the recipient
     $scope.submitRecipient = function(recipient) {
     console.log(recipient, currentDOMGotYaaId);
@@ -117,17 +116,12 @@ var app = angular.module('GotyaaApp', ['ngResource', 'templates'])
       console.log(newTwilioSMSParams);
       newRecipient.message_sent = true; 
       newRecipient.$save();
-       
-       $scope.recipient= []; 
-       $scope.recipients = Recipients.query(function(recipients){
-        return recipients 
-        });
-        $scope.savedGotYaas = GotYaas.query(function(messages){
-        return messages 
-        });
-
-
+      $scope.recipient= []; 
+    };
+    // checks Twilio for any new messages 
+    $scope.checkForResponses = function(){
+      var newTwilioResponse = TwilioResponse.get();  
+      console.log(newTwilioResponse); 
     }; 
-
   }
 ]); 
