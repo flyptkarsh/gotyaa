@@ -120,21 +120,19 @@ var app = angular.module('GotyaaApp', ['ngResource', 'templates'])
     };
     // checks Twilio for any new messages 
     $scope.checkForResponses = function(){ 
-      // Twilio Credentials
-      var accountSid = process.env.ACCOUNTSID; 
-      var authToken = process.env.AUTHTOKEN;
-
+      // Twilio Credentials 
+      var accountSid = 'AC6cbdfaee045e381e8c82d9433f87173b'; 
+      var authToken = '871f1d0cab8b8ec6d5186cb57131de38'; 
+       
       //require the Twilio module and create a REST client 
       var client = require('twilio')(accountSid, authToken); 
        
-      client.messages.list({  
-        to: "6467621226", 
-        dateSent: "2014-09-04", 
+      client.messages.list({    
       }, function(err, data) { 
         data.messages.forEach(function(message) { 
          console.log(message.friendlyName); 
         }); 
-      }); 
+      });
     }; 
   }
 ]); 
