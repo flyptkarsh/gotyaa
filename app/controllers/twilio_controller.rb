@@ -1,5 +1,5 @@
 class TwilioController < ApplicationController
-  protect_from_forgery :except => [:message, :messages]
+  protect_from_forgery :except => [:message, :response]
   def message
     params_from = params[:from]
     params_to = params[:to]
