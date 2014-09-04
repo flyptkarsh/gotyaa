@@ -14,7 +14,6 @@ class TwilioController < ApplicationController
       :body => params_body,  
     })
   end 
-
   def response
     account_sid = ENV["TWILIO_SID"]
     auth_token = ENV["TWILIO_TOKEN"]
@@ -24,6 +23,5 @@ class TwilioController < ApplicationController
     render json: @client.account.messages.list({ to: '+16467621226', }).each do |message| 
       puts message.body
     end
-    render json:
   end 
 end
