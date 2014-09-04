@@ -10,16 +10,16 @@
     <br>
     <span ng-bind="smsContent"></span>
     <br>
-    <input type="submit" id="submit" value="Submit" /> 
+    <input class='enjoy-css'type="submit" id="submit" value="Submit" /> 
 
     <!--show messages that have been added but not sent   -->
     <p> You have {{messagesPending.length}} pending GotYaas</p>
 
     <div ng-repeat="message in messagesPending">
       <h2>{{message}}</h2>
-      <button ng-click="removeMessage(message)">Delete GotYaa</button>
-      <button ng-click="saveMessage(message, <%= current_user.id %>)">Save GotYaa</button>
-      <button ng-click="addRecipient(message)">Add Recipients</button>
+      <button class='enjoy-css' ng-click="removeMessage(message)">Delete GotYaa</button>
+      <button class='enjoy-css' ng-click="saveMessage(message, <%= current_user.id %>)">Save GotYaa</button>
+      <button class='enjoy-css' ng-click="addRecipient(message)">Add Recipients</button>
     </div>
   </form> 
   
@@ -31,7 +31,7 @@
 <h2>GotYaa Status</h2>
 Current User Id: <%= current_user.id %>
 <div ng-controller="SentGotyaaController">
-  <button ng-click="checkForResponses()">press me</button>
+  <button class='enjoy-css' ng-click="checkForResponses()">press me</button>
   <!-- gotYaas from the database -->
   <div ng-mouseover="thisGotyaa(Resource.id, Resource.content)" ng-repeat="Resource in savedGotYaas| filter:{ user_id: <%= current_user.id %>}">
     <h3>{{Resource.content}}</h3> 
@@ -65,7 +65,7 @@ Current User Id: <%= current_user.id %>
           <span ng-bind="recipient.name"></span><br> 
           <span ng-bind="recipient.phone_number"></span> 
           <br>
-          <input type="submit" id="submit" value="Add Name"/> 
+          <input class='enjoy-css'type="submit" id="submit" value="Add Name"/> 
 
           </li>
         </form>
