@@ -32,7 +32,11 @@
     <h3>{{Resource.content}}</h3> 
     date: {{Resource.created_at | date: format: medium}}
     <p ng-repeat="Resource in recipients | filter: {got_yaa_id: Resource.id } | orderBy: 'created_at':true">
-      <h4 class= "{{Resource.has_responded}}">{{Resource.name}}</h4>
+      {{Resource.name}}
+      {{Resource.has_responded}}
+      
+      {{Resource.message_sent}}
+      {{Resource.has_responded}}
     </p>
     <div>
       <!-- form to add recipient -->

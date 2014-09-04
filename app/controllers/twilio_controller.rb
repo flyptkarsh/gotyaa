@@ -1,5 +1,5 @@
 class TwilioController < ApplicationController
-  protect_from_forgery :except => [:message, :response]
+  protect_from_forgery :except => [:message, :messages]
   def message
     params_from = params[:from]
     params_to = params[:to]
@@ -22,7 +22,7 @@ class TwilioController < ApplicationController
     @client = Twilio::REST::Client.new account_sid, auth_token 
 
     @client.account.messages.list({ to: '+16467621226', }).each do |message| 
-      put message.from
+      puts message.body
     end
   end 
 end
