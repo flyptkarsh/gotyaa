@@ -8,8 +8,6 @@ Rails.application.routes.draw do
   resources :got_yaas 
   resources :recipients
  
-  
-  
   devise_for :users
   get 'main/index' 
   
