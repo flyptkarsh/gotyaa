@@ -20,7 +20,7 @@ class TwilioController < ApplicationController
     # set up a client to talk to the Twilio REST API 
     @client = Twilio::REST::Client.new account_sid, auth_token 
 
-    render json: @client.account.messages.list({ }).each do |message| 
+    @client.account.messages.list({ }).each do |message| 
       puts message.body
     en
   end 
