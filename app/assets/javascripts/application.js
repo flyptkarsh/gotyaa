@@ -121,9 +121,9 @@ var app = angular.module('GotyaaApp', ['ngResource', 'templates'])
     // checks Twilio for any new messages 
     $scope.checkForResponses = function(){ 
       // Twilio Credentials
-      var accountSid = ENV['ACCOUNTSID']; 
-      var authToken = ENV['AUTHTOKEN'];
-    
+      var accountSid = process.env.ACCOUNTSID; 
+      var authToken = process.env.AUTHTOKEN;
+
       //require the Twilio module and create a REST client 
       var client = require('twilio')(accountSid, authToken); 
        
