@@ -22,7 +22,7 @@ class TwilioController < ApplicationController
     @client = Twilio::REST::Client.new account_sid, auth_token 
 
     @client.account.messages.list({ to: '+16467621226', }).each do |message| 
-      render json: message.from
+    
     end
   end 
 end
