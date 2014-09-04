@@ -68,7 +68,7 @@ var app = angular.module('GotyaaApp', ['ngResource', 'templates'])
   }])
   .factory('TwilioResponse', ['$resource', function($resource) {
    // makes HTTP request to the server 
-   return $resource('http://igotyaa.herokuapp.com/twilio/response');
+   return $resource('http://igotyaa.herokuapp.com/twilio/messages');
   }])     
   // makes a get request to the back-end for message status, displays status
   .controller('SentGotyaaController', ['$scope', 'Recipients','GotYaas', '$interval', 'TwilioMessage', 'TwilioResponse', function($scope, Recipients, GotYaas, $interval, TwilioMessage, TwilioResponse) { 
