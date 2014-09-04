@@ -1,32 +1,34 @@
 <div ng-controller="GotyaaController">
-  <form class='sent' name="gotYaaForm" ng-submit="submit()" ng-controller="GotyaaController" novalidate>
-    
-    <!-- form to add content to a new message -->
-    <h2>Add Message</h2>
-    <div class="input-box">
-      <input type="text" class="input-text" name="smsContent" placeholder="type your message here" ng-model="smsContent" required>
-      <span class="error" ng-show="gotYaaForm.content.$error.required">Required!</span><br>
-      <span ng-bind="smsContent"></span>
-      <input class='enjoy-css'type="submit" id="submit" value="Add Message" /> 
-    </div>
-    <!--show messages that have been added but not sent   -->
-    <p> You have {{messagesPending.length}} pending GotYaas</p>
-    <div ng-repeat="message in messagesPending">
-      <h3>{{message}}</h3>
-      <button class='enjoy-css' ng-click="removeMessage(message)">Delete GotYaa</button>
-      <button class='enjoy-css' ng-click="saveMessage(message, <%= current_user.id %>)">Save GotYaa</button>
-      <button class='enjoy-css' ng-click="addRecipient(message)">Add Recipients</button>
-    </div>
-  </form> 
+  <article class='sent'>
+    <form name="gotYaaForm" ng-submit="submit()" ng-controller="GotyaaController" novalidate>
+      <!-- form to add content to a new message -->
+      <h2>Add Message</h2>
+      <div class="input-box">
+        <input type="text" class="input-text" name="smsContent" placeholder="type your message here" ng-model="smsContent" required>
+        <span class="error" ng-show="gotYaaForm.content.$error.required">Required!</span><br>
+        <span ng-bind="smsContent"></span>
+        <input class='enjoy-css'type="submit" id="submit" value="Add Message" /> 
+      </div>
+      <!--show messages that have been added but not sent   -->
+      <p> You have {{messagesPending.length}} pending GotYaas</p>
+      <div ng-repeat="message in messagesPending">
+        <h3>{{message}}</h3>
+        <button class='enjoy-css' ng-click="removeMessage(message)">Delete GotYaa</button>
+        <button class='enjoy-css' ng-click="saveMessage(message, <%= current_user.id %>)">Save GotYaa</button>
+        <button class='enjoy-css' ng-click="addRecipient(message)">Add Recipients</button>
+      </div>
+    </form> 
+  </article>
   <!-- status from database -->
 </div>
-<div class='sent'>
+<article class='sent'>
   <h2>GotYaa Status</h2>
-</div>
+</article>
 <div ng-controller="SentGotyaaController">
   <button class='enjoy-css' ng-click="checkForResponses()">press me</button>
   <!-- gotYaas from the database -->
-  <div class='sent' ng-mouseover="thisGotyaa(Resource.id, Resource.content)" ng-repeat="Resource in savedGotYaas| filter:{ user_id: <%= current_user.id %>}">
+  <article class='sent'>
+  <div ng-mouseover="thisGotyaa(Resource.id, Resource.content)" ng-repeat="Resource in savedGotYaas| filter:{ user_id: <%= current_user.id %>}">
     <h3>{{Resource.content}}</h3> 
     date: {{Resource.created_at | date: format: medium}}
     <p ng-repeat="Resource in recipients | filter: {got_yaa_id: Resource.id } | orderBy: 'created_at':true">
@@ -35,7 +37,7 @@
       {{Resource.has_responded}}
     </p>
     <div>
-    <!-- form to add recipient -->
+      <!-- form to add recipient -->
       <div>
         <form name="recipient" ng-controller='SentGotyaaController' ng-submit="submitRecipient(recipient)" novalidate>
           <h4>Add Recipient</h4>
@@ -56,7 +58,7 @@
           </div>
           </li>
         </form>
-      </div> 
+      </article> 
     </div>
   </div> 
 </div>
