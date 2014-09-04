@@ -11,7 +11,7 @@ class TwilioController < ApplicationController
     @client.account.messages.create({
       :from => params_from, 
       :to => params_to, 
-      :body => params_body,  
+      :body => params_body=,  
     })
   end 
   def response
@@ -19,7 +19,7 @@ class TwilioController < ApplicationController
     auth_token = ENV["TWILIO_TOKEN"]
     # set up a client to talk to the Twilio REST API 
     @client = Twilio::REST::Client.new account_sid, auth_token 
-    @client.account.messages.list({ }).each do |message| 
+    @client.account.messages.list({ to: '+16467621226'}).each do |message| 
       puts message.body
     end
   end 

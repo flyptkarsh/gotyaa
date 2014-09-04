@@ -67,7 +67,7 @@ var app = angular.module('GotyaaApp', ['ngResource', 'templates'])
    return $resource('http://igotyaa.herokuapp.com/twilio/message');
   }])
   .factory('TwilioResponse', ['$resource', function($resource) {
-   // makes HTTP request to the server 
+   // makes HTTP request to the server 1
    return $resource('http://igotyaa.herokuapp.com/twilio/response');
   }])     
   // makes a get request to the back-end for message status, displays status
@@ -81,6 +81,7 @@ var app = angular.module('GotyaaApp', ['ngResource', 'templates'])
     $scope.recipients = Recipients.query(function(recipients){
       return recipients 
       }); 
+    
     
     // returns the ID of the clicked gotyaa
     $scope.thisGotyaa = function(gotYaaId, gotYaaContent) { 
@@ -103,7 +104,7 @@ var app = angular.module('GotyaaApp', ['ngResource', 'templates'])
       newTwilioSMSParams.to = newRecipient.phone_number; 
       newTwilioSMSParams.body = currentDOMGotYaaContent; 
       console.log(newTwilioSMSParams); 
-      newTwilioSMSParams.$save();
+      newTwilioResponseSMSParams.$save();
       console.log(newTwilioSMSParams);
       newRecipient.message_sent = true; 
       newRecipient.$save();
