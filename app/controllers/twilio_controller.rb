@@ -11,7 +11,7 @@ class TwilioController < ApplicationController
     @client.account.messages.create({
       :from => params_from, 
       :to => params_to, 
-      :body => params_body=,  
+      :body => params_body  
     })
   end 
   def response
