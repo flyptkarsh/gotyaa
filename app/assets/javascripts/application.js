@@ -120,10 +120,9 @@ var app = angular.module('GotyaaApp', ['ngResource', 'templates'])
     };
     // checks Twilio for any new messages 
     $scope.checkForResponses = function(){
-      var newTwilioResponse = TwilioResponse.query(function(){
-        
+      var newTwilioResponse = TwilioResponse.query(function(message){
+        console.log(message); 
       });   
-      console.log(newTwilioResponse); 
     }; 
   }
 ]); 
