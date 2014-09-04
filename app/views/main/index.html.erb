@@ -25,7 +25,7 @@
   <h2>GotYaa Status</h2>
 </article>
 <div ng-controller="SentGotyaaController">
-  <button class='enjoy-css' ng-click="checkForResponses()">press me</button>
+  <button ng-click="checkForResponses()">press me</button>
   <!-- gotYaas from the database -->
   <div ng-mouseover="thisGotyaa(Resource.id, Resource.content)" ng-repeat="Resource in savedGotYaas| filter:{ user_id: <%= current_user.id %>}">
     <article class='sent'>
@@ -33,9 +33,6 @@
     date: {{Resource.created_at | date: format: medium}}
     <p ng-repeat="Resource in recipients | filter: {got_yaa_id: Resource.id } | orderBy: 'created_at':true">
       {{Resource.name}}
-      {{Resource.has_responded}}
-      
-      {{Resource.message_sent}}
       {{Resource.has_responded}}
     </p>
     <div>
@@ -64,7 +61,7 @@
     </div>
   </div> 
 </div>
- 
+
 
 
 
