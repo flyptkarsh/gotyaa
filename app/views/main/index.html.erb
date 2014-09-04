@@ -9,10 +9,8 @@
       <span ng-bind="smsContent"></span>
       <input class='enjoy-css'type="submit" id="submit" value="Add Message" /> 
     </div>
-
     <!--show messages that have been added but not sent   -->
     <p> You have {{messagesPending.length}} pending GotYaas</p>
-
     <div ng-repeat="message in messagesPending">
       <h3>{{message}}</h3>
       <button class='enjoy-css' ng-click="removeMessage(message)">Delete GotYaa</button>
@@ -20,11 +18,7 @@
       <button class='enjoy-css' ng-click="addRecipient(message)">Add Recipients</button>
     </div>
   </form> 
-  
-
-
-
-<!-- status from database -->
+  <!-- status from database -->
 </div>
 <div class='sent'>
   <h2>GotYaa Status</h2>
@@ -35,15 +29,11 @@
   <div class='sent' ng-mouseover="thisGotyaa(Resource.id, Resource.content)" ng-repeat="Resource in savedGotYaas| filter:{ user_id: <%= current_user.id %>}">
     <h3>{{Resource.content}}</h3> 
     date: {{Resource.created_at | date: format: medium}}
-
-
-    <li ng-repeat="Resource in recipients | filter: {got_yaa_id: Resource.id } | orderBy: 'created_at':true">
+    <p ng-repeat="Resource in recipients | filter: {got_yaa_id: Resource.id } | orderBy: 'created_at':true">
       {{Resource.name}}
       {{Resource.message_sent}}
       {{Resource.has_responded}}
-    </li>
-
-    <!-- form to add recipient -->
+    </p>
     <div>
     <!-- form to add recipient -->
       <div>
@@ -52,13 +42,11 @@
           <div class="input-box">
             <input ng-model="recipient.name" placeholder="name" type="text" class="input-text" required></input>
             <input ng-model="recipient.phone_number" placeholder="number" type="number" class="input-text"  ng-minlength="10" ng-maxlength="10" required>
-            
             <!-- error messages -->
             <span class="error" ng-show="recipient.recipient.phone_number.$error.minlength">
                 Too short, input a ten digit mobile number.</span>
             <span class="error" ng-show="recipient.recipient.phone_number.$error.maxlength">
                 Too long, only ten digits please.. no country code.</span><br>
-            
             <!-- user preview -->
             </input>
             <span ng-bind="recipient.name"></span><br> 
