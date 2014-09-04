@@ -31,7 +31,7 @@
 <h2>GotYaa Status</h2>
 Current User Id: <%= current_user.id %>
 <div ng-controller="SentGotyaaController">
-  
+  <button ng-click="checkForResponses()">press me</button>
   <!-- gotYaas from the database -->
   <div ng-mouseover="thisGotyaa(Resource.id, Resource.content)" ng-repeat="Resource in savedGotYaas| filter:{ user_id: <%= current_user.id %>}">
     <h3>{{Resource.content}}</h3> 
