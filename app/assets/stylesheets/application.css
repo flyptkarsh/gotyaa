@@ -59,6 +59,13 @@ h2 {
   letter-spacing: 10px;
   text-shadow: 4px 4px 0 rgb(238,238,238) , 6px 6px 0 rgb(112,112,112) ;
 }
+.true {
+  color: green;
+  text-decoration: ;  
+}
+.false {
+  color: red;
+}
 
 .board-game {
   -webkit-box-sizing: content-box;
