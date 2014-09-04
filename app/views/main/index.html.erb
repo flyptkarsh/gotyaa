@@ -3,14 +3,12 @@
     
     <!-- form to add content to a new message -->
     <h2>Add Message</h2>
-    <br>
-    <input type="text" class="input-text" name="smsContent" placeholder="type your message here" ng-model="smsContent" required>
-    <br>
-    <span class="error" ng-show="gotYaaForm.content.$error.required">Required!</span><br>
-    <br>
-    <span ng-bind="smsContent"></span>
-    <br>
-    <input class='enjoy-css'type="submit" id="submit" value="Add Message" /> 
+    <div class="input-box">
+      <input type="text" class="input-text" name="smsContent" placeholder="type your message here" ng-model="smsContent" required>
+      <span class="error" ng-show="gotYaaForm.content.$error.required">Required!</span><br>
+      <span ng-bind="smsContent"></span>
+      <input class='enjoy-css'type="submit" id="submit" value="Add Message" /> 
+    </div>
 
     <!--show messages that have been added but not sent   -->
     <p> You have {{messagesPending.length}} pending GotYaas</p>
@@ -50,24 +48,24 @@
     <!-- form to add recipient -->
       <div>
         <form name="recipient" ng-controller='SentGotyaaController' ng-submit="submitRecipient(recipient)" novalidate>
-
           <h4>Add Recipient</h4>
-          <input ng-model="recipient.name" placeholder="name" type="text" class="input-text" required></input>
-          <input ng-model="recipient.phone_number" placeholder="number" type="number" class="input-text"  ng-minlength="10" ng-maxlength="10" required>
-          
-          <!-- error messages -->
-          <span class="error" ng-show="recipient.recipient.phone_number.$error.minlength">
-              Too short, input a ten digit mobile number.</span>
-          <span class="error" ng-show="recipient.recipient.phone_number.$error.maxlength">
-              Too long, only ten digits please.. no country code.</span><br>
-          
-          <!-- user preview -->
-          </input>
-          <span ng-bind="recipient.name"></span><br> 
-          <span ng-bind="recipient.phone_number"></span> 
-          <br>
-          <input class='enjoy-css'type="submit" id="submit" value="Add Name"/> 
-
+          <div class="input-box">
+            <input ng-model="recipient.name" placeholder="name" type="text" class="input-text" required></input>
+            <input ng-model="recipient.phone_number" placeholder="number" type="number" class="input-text"  ng-minlength="10" ng-maxlength="10" required>
+            
+            <!-- error messages -->
+            <span class="error" ng-show="recipient.recipient.phone_number.$error.minlength">
+                Too short, input a ten digit mobile number.</span>
+            <span class="error" ng-show="recipient.recipient.phone_number.$error.maxlength">
+                Too long, only ten digits please.. no country code.</span><br>
+            
+            <!-- user preview -->
+            </input>
+            <span ng-bind="recipient.name"></span><br> 
+            <span ng-bind="recipient.phone_number"></span> 
+            <br>
+            <input class='enjoy-css'type="submit" id="submit" value="Add Name"/> 
+          </div>
           </li>
         </form>
       </div> 
