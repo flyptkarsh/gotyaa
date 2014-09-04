@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   post 'twilio/message'
 
-  get 'twilio/response'
+  get 'twilio/messages'
 
   resources :got_yaas 
   resources :recipients

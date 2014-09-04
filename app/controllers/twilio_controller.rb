@@ -15,7 +15,7 @@ class TwilioController < ApplicationController
     })
   end 
 
-  def response
+  def messages
     account_sid = ENV["TWILIO_SID"]
     auth_token = ENV["TWILIO_TOKEN"]
     # set up a client to talk to the Twilio REST API 
