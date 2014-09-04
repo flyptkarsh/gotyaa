@@ -61,7 +61,7 @@ h2 {
 }
 .true {
   color: green;
-  text-decoration: ;  
+  text-decoration: line-through;  
 }
 .false {
   color: red;
