@@ -119,9 +119,10 @@ var app = angular.module('GotyaaApp', ['ngResource', 'templates'])
       $scope.recipient= []; 
     };
     // checks Twilio for any new messages 
-    $scope.checkForResponses = function(){ 
-    curl -X GET 'https://api.twilio.com/2010-04-01/Accounts/AC6cbdfaee045e381e8c82d9433f87173b/Messages.json?To=+16467621226&DateSent=2014-09-04' \
-    -u AC6cbdfaee045e381e8c82d9433f87173b:871f1d0cab8b8ec6d5186cb57131de38
+    $scope.checkForResponses = function(){
+      var newTwilioResponse = TwilioResponse.query(function(data){
+        console.log(data); 
+      });   
     }; 
   }
 ]); 
