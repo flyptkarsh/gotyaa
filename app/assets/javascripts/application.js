@@ -1,14 +1,3 @@
-// This is a manifest file that'll be compiled into application.js, which will include all the files
-// listed below.
-//
-// Any JavaScript/Coffee file within this directory, lib/assets/javascripts, vendor/assets/javascripts,
-// or vendor/assets/javascripts of plugins, if any, can be referenced here using a relative path.
-//
-// It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the
-// compiled file.
-//
-// Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
-// about supported directives.
 //= require jquery
 //= require jquery_ujs
 
@@ -24,11 +13,10 @@ var app = angular.module('GotyaaApp', ['ngResource', 'templates'])
   .config(['$resourceProvider', function ($resourceProvider) {}])
   // factory for making ajaxy angular calls to the message database
   .factory('GotYaas', ['$resource', function($resource) {
-    return $resource('http://igotyaa.herokuapp.com/got_yaas');
+    return $resource('http://localhost:3000/got_yaas/:gotYaaId', {gotYaaId: '@gotYaaId'});
   }])
   // controls adding the message and creating a new gotyaa 
   .controller('GotyaaController', ['$scope', 'Recipients','GotYaas', function($scope, Recipients, GotYaas, TwilioMessage) {
-   
     $scope.messagesPending = [];
 
     // adds the content to the message 
@@ -51,42 +39,54 @@ var app = angular.module('GotyaaApp', ['ngResource', 'templates'])
       newGotyaa.user_id = current_user_id; 
       newGotyaa.content = message; 
       newGotyaa.$save();
-      $scope.messages = GotYaas.query(function(messages){
-        return messages 
-        }); 
+      $scope.messagesPending = [];  
     };
-    $scope 
   }])
+
   // factory to make angular ajaxy requests to database 
   .factory('Recipients', ['$resource', function($resource) {
    // makes HTTP request to the server 
-   return $resource('http://igotyaa.herokuapp.com/recipients');
+   return $resource('http://localhost:3000/recipients');
   }])
   .factory('TwilioMessage', ['$resource', function($resource) {
    // makes HTTP request to the server 
-   return $resource('http://igotyaa.herokuapp.com/twilio/message');
+   return $resource('http://localhost:3000/twilio/message');
   }])
   .factory('TwilioResponse', ['$resource', function($resource) {
    // makes HTTP request to the server 1
-   return $resource('http://igotyaa.herokuapp.com/twilio/response');
+   return $resource('http://localhost:3000/twilio/response');
   }])     
   // makes a get request to the back-end for message status, displays status
   .controller('SentGotyaaController', ['$scope', 'Recipients','GotYaas', '$interval', 'TwilioMessage', 'TwilioResponse', function($scope, Recipients, GotYaas, $interval, TwilioMessage, TwilioResponse) { 
-
+    
     // pulls the sent gotYaas from the database
+    $scope.refreshGotYaas = function(){
+    console.log('refresh triggered'); 
     $scope.savedGotYaas = GotYaas.query(function(messages){
       return messages 
       }); 
+    }; 
+
     //returns all recipients in a promise 
-    $scope.recipients = Recipients.query(function(recipients){
+    $scope.refreshRecipients = function(){
+      console.log('refresh recipients'); 
+      $scope.recipients = Recipients.query(function(recipients){
+
       return recipients 
       }); 
+    }
+    $scope.refreshAll = function() {
+      $scope.refreshRecipients(); 
+      $scope.refreshGotYaas();
+    }; 
     
-    
+    $scope.refreshRecipients(); 
+    $scope.refreshGotYaas(); 
     // returns the ID of the clicked gotyaa
     $scope.thisGotyaa = function(gotYaaId, gotYaaContent) { 
       currentDOMGotYaaId = gotYaaId; 
-      currentDOMGotYaaContent = gotYaaContent;  
+      currentDOMGotYaaContent = gotYaaContent; 
+      console.log(currentDOMGotYaaId, currentDOMGotYaaContent);  
     };
 
     // submits and texts the recipient
@@ -104,16 +104,17 @@ var app = angular.module('GotyaaApp', ['ngResource', 'templates'])
       newTwilioSMSParams.to = newRecipient.phone_number; 
       newTwilioSMSParams.body = currentDOMGotYaaContent; 
       console.log(newTwilioSMSParams); 
-      newTwilioResponseSMSParams.$save();
+      newTwilioSMSParams.$save();
       console.log(newTwilioSMSParams);
       newRecipient.message_sent = true; 
       newRecipient.$save();
-      $scope.recipient= []; 
-      //returns all recipients in a promise 
-      $scope.recipients = Recipients.query(function(recipients){
-      return recipients 
-      }); 
+      $scope.recipient= [];
     };
+    // Deletes a gotYaa message from the database
+    $scope.deleteGotYaa = function() {
+      GotYaas.delete({gotYaaId: currentDOMGotYaaId});
+      $scope.refreshGotYaas();   
+    }; 
     // checks Twilio for any new messages 
     $scope.checkForResponses = function(){
       var newTwilioResponse = new TwilioResponse(); 

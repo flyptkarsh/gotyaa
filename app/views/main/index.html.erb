@@ -20,15 +20,13 @@
     </form> 
   <!-- status from database -->
 </div>
-  <article class='sent'>
-    <h2>GotYaa Status</h2>
-  </article>
   <div ng-controller="SentGotyaaController">
-    <button ng-click="checkForResponses()">press me</button>
+  <h2 ng-mouseover="refreshAll()" ng-cloak>GotYaa Status</h2>
     <!-- gotYaas from the database -->
-    <div ng-mouseover="thisGotyaa(Resource.id, Resource.content)" ng-repeat="Resource in savedGotYaas| filter:{ user_id: <%= current_user.id %>}">
+    <div ng-mouseover="thisGotyaa(Resource.id, Resource.content)" ng-repeat="Resource in savedGotYaas| filter:{ user_id: <%= current_user.id %>} | orderBy: 'created_at':true">
       <article class='sent'>
-      <h3>{{Resource.content}}</h3> 
+      <h3>{{Resource.content}}</h3>
+      <button ng-click='deleteGotYaa(resource.id)'>Delete Gotyaa</button><br>
       date: {{Resource.created_at | date: format: medium}}
       <p ng-repeat="Resource in recipients | filter: {got_yaa_id: Resource.id } | orderBy: 'created_at':true">
         {{Resource.name}}
@@ -40,18 +38,10 @@
           <form name="recipient" ng-controller='SentGotyaaController' ng-submit="submitRecipient(recipient)" novalidate>
             <h4>Add Recipient</h4>
             <div class="input-box">
-              <input ng-model="recipient.name" placeholder="name" type="text" class="input-text" required></input>
-              <input ng-model="recipient.phone_number" placeholder="number" type="number" class="input-text"  ng-minlength="10" ng-maxlength="10" required>
-              <!-- error messages -->
-              <span class="error" ng-show="recipient.recipient.phone_number.$error.minlength">
-                  Too short, input a ten digit mobile number.</span>
-              <span class="error" ng-show="recipient.recipient.phone_number.$error.maxlength">
-                  Too long, only ten digits please.. no country code.</span><br>
-              <!-- user preview -->
-              </input>
+              <input ng-model="recipient.name" placeholder="Name" class="input-text" required></input>
+              <input ng-model="recipient.phone_number" placeholder="Cell Number" ng-maxlength="10" required></input><br>
               <span ng-bind="recipient.name"></span><br> 
-              <span ng-bind="recipient.phone_number"></span> 
-              <br>
+              <span ng-bind="recipient.phone_number"></span><br>
               <input class='enjoy-css'type="submit" id="submit" value="Add Name"/> 
             </div>
             </li>

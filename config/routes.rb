@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   get 'twilio/response'
 
+
   resources :got_yaas 
   resources :recipients
  

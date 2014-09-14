@@ -1,5 +1,5 @@
 class GotYaasController < ApplicationController
-  protect_from_forgery :except => [:index, :create]
+  protect_from_forgery :except => [:index, :create, :destroy]
   def index
     render json: GotYaa.all
   end
@@ -14,7 +14,8 @@ class GotYaasController < ApplicationController
   end
   
   def destroy
-    render json: @got_yaa.to_json if @got_yaa.destroy
+    GotYaa.delete(params[:id])
+    render json: @got_yaa.to_json, status: 200 if @got_yaa.delete
   end
 
   private
