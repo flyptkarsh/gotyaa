@@ -1,25 +1,50 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>RogerThat</title>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
-    
     <%= stylesheet_link_tag    "application", media: "all" %>
     <%= javascript_include_tag "application" %>
+    <title><%= content_for?(:title) ? yield(:title) : "foundation-rails" %></title>
 
-  <%= csrf_meta_tags %>
-</head>
-<body ng-app='GotyaaApp'>
-<h1 class="board-game">Roger That</h1>
-<ul class="hmenu">
-  <%= render 'devise/menu/registration_items' %>
-  <%= render 'devise/menu/login_items' %>
-</ul>
-<% if user_signed_in? %>
-  <div>Signed in as <%= current_user.email %></div>
-<% end %>
-<%= yield %>
+    <%= stylesheet_link_tag    "application" %>
+    <%= javascript_include_tag "vendor/modernizr" %>
+    <%= csrf_meta_tags %>
+  </head>
 
-</body>
+  <body ng-app='GotyaaApp'>
+    <nav class="top-bar">
+      <ul class="title-area">
+        <li class="name">
+          <h1><%= link_to "RogerThat", main_index_path %></a></h1>
+        </li>
+      </ul>
+      <section class="top-bar-section">
+        <ul class="right">
+        <% if user_signed_in? %>
+          <li class="divider"></li>
+          <li><%= link_to('Edit registration', edit_user_registration_path) %></li>
+          <li class="divider"></li>
+          <li><%= link_to('View Roger Thats', main_index_path) %></li>
+          <li class="divider"></li>
+          <li><%= link_to('Logout', destroy_user_session_path, :method => :destroy, redirect_to: welcome_index_path )%></li>
+        <% else %>
+          <li class="divider"></li>
+          <li><%= link_to('Register', new_user_registration_path)%></li>
+          <li class="divider"></li>
+          <li><%= link_to('Login', new_user_session_path)%></li>
+        <% end %>
+        </ul>
+      </section>
+    </nav>
+    <!-- foundation gird system -->
+    <div class="small-4 columns">
+    <h2>About Roger That</h2><p>Roger That allows you to notify a group of something very important and track who received and acknowledged the message.</p>
+    <%= yield %>
+    <%= javascript_include_tag "application" %>
+  </body>
 </html>
+ 
+

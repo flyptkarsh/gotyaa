@@ -1,6 +1,5 @@
 //= require jquery
 //= require jquery_ujs
-
 //= require angular
 //= require angular-animate
 //= require angular-resource
@@ -13,20 +12,20 @@ var app = angular.module('GotyaaApp', ['ngResource', 'templates'])
   .config(['$resourceProvider', function ($resourceProvider) {}])
   // factory for making ajaxy angular calls to the message database
   .factory('GotYaas', ['$resource', function($resource) {
-    return $resource('http://9867498.ngrok.com/got_yaas/:gotYaaId', {gotYaaId: '@gotYaaId'});
+    return $resource('/got_yaas/:gotYaaId', {gotYaaId: '@gotYaaId'});
   }])
   // factory to make angular ajaxy requests to database 
   .factory('Recipients', ['$resource', function($resource) {
    // makes HTTP request to the server 
-   return $resource('http://9867498.ngrok.com/recipients/:id', {id: '@id'});
+   return $resource('/recipients/:id', {id: '@id'});
   }])
   .factory('TwilioMessage', ['$resource', function($resource) {
    // makes HTTP request to the server 
-   return $resource('http://9867498.ngrok.com/twilio/message');
+   return $resource('/twilio/message');
   }])
   .factory('TwilioResponse', ['$resource', function($resource) {
    // makes HTTP request to the server 1
-   return $resource('http://9867498.ngrok.com/twilio/response');
+   return $resource('/twilio/response');
   }]) 
   // controls adding the message and creating a new gotyaa 
   .controller('GotyaaController', ['$scope', 'Recipients','GotYaas', function($scope, Recipients, GotYaas, TwilioMessage) {

@@ -1,1 +1,9 @@
-
+  <% if user_signed_in? %>
+    <p> To send a message click <%= link_to('here', main_index_path) %></p>
+  <% else %>
+    <p>Sign up and get started by clicking <%= link_to('here', new_user_registration_path)  %></p>
+  <% end %>
+</div>
+<div class="small-8 columns">
+  <img src="http://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/%22Getting_em_up%22_at_U.S.Naval_Training_Camp%2C_Seattle%2C_Washington._Webster_%26_Stevens._-_NARA_-_533698.tif/lossy-page1-1920px-%22Getting_em_up%22_at_U.S.Naval_Training_Camp%2C_Seattle%2C_Washington._Webster_%26_Stevens._-_NARA_-_533698.tif.jpg">
+</div>

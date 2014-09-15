@@ -1,5 +1,5 @@
-<div ng-controller="GotyaaController">
 
+  <div ng-controller="GotyaaController">
     <form class='sent' name="gotYaaForm" ng-submit="submit()" ng-controller="GotyaaController" novalidate>
       <!-- form to add content to a new message -->
       <h2>Add Message</h2>
@@ -7,49 +7,55 @@
         <input type="text" class="input-text" name="smsContent" placeholder="type your message here" ng-model="smsContent" required>
         <span class="error" ng-show="gotYaaForm.content.$error.required">Required!</span><br>
         <span ng-bind="smsContent"></span>
-        <input class='enjoy-css'type="submit" id="submit" value="Add Message" /> 
+        <input class='tiny button'type="submit" id="submit" value="Add Message" /> 
       </div>
       <!--show messages that have been added but not sent   -->
       <p> You have {{messagesPending.length}} pending GotYaas</p>
       <div ng-repeat="message in messagesPending">
         <h3>{{message}}</h3>
-        <button class='enjoy-css' ng-click="removeMessage(message)">Delete GotYaa</button>
-        <button class='enjoy-css' ng-click="saveMessage(message, <%= current_user.id %>)">Save GotYaa</button>
-        <button class='enjoy-css' ng-click="addRecipient(message)">Add Recipients</button>
+        <button class='tiny button' ng-click="removeMessage(message)">Delete GotYaa</button>
+        <button class='tiny button' ng-click="saveMessage(message, <%= current_user.id %>)">Save GotYaa</button>
+        <button class='tiny button' ng-click="addRecipient(message)">Add Recipients</button>
       </div>
-    </form> 
-  <!-- status from database -->
-</div>
-  <div ng-controller="SentGotyaaController">
-  <h2 ng-mouseover="refreshAll()" ng-cloak>Roger That Status</h2>
-    <!-- gotYaas from the database -->
-    <div ng-mouseover="thisGotyaa(Resource.id, Resource.content)" ng-repeat="Resource in savedGotYaas| filter:{ user_id: <%= current_user.id %>} | orderBy: 'created_at':true">
-      <article class='sent'>
-      <h3>{{Resource.content}}</h3>
-      <button ng-click='deleteGotYaa(resource.id)'>Delete Gotyaa</button><br>
-      date: {{Resource.created_at | date: format: medium}}
-      <p ng-repeat="Resource in recipients | filter: {got_yaa_id: Resource.id} | orderBy: 'created_at':true">
-        {{Resource.name}}<span ng-if="Resource.has_responded"> said roger that.</span>
-      </p> 
-      <div>
-        <!-- form to add recipient -->
-        <div>
-          <form name="recipient" ng-controller='SentGotyaaController' ng-submit="submitRecipient(recipient)" novalidate>
-            <h4>Add Recipient</h4>
-            <div class="input-box">
-              <input ng-model="recipient.name" placeholder="Name" class="input-text" required></input>
-              <input ng-model="recipient.phone_number" placeholder="Cell Number" ng-maxlength="10" required></input><br>
-              <span ng-bind="recipient.name"></span><br> 
-              <span ng-bind="recipient.phone_number"></span><br>
-              <input class='enjoy-css'type="submit" id="submit" value="Add Name"/> 
-            </div>
-            </li>
-           </article> 
-          </form>
-      </div>
-    </div> 
+    </form>  
   </div>
 </div>
+
+<!-- foundation gird system -->
+  <div class="small-8 columns">
+    <!-- status from database -->
+    <div ng-controller="SentGotyaaController">
+      <h2 ng-mouseover="refreshAll()" ng-cloak>Roger That Status</h2>
+        <!-- gotYaas from the database -->
+        <ul class="small-block-grid-2 medium-block-grid-3 large-block-grid-4">
+        <div ng-mouseover="thisGotyaa(Resource.id, Resource.content)" ng-repeat="Resource in savedGotYaas| filter:{ user_id: <%= current_user.id %>} | orderBy: 'created_at':true">
+          <ul>
+          <h3>{{Resource.content}}</h3>
+          <button class='tiny button' ng-click='deleteGotYaa(resource.id)'>Delete Gotyaa</button><br>
+          date: {{Resource.created_at | date: format: medium}}
+          <p ng-repeat="Resource in recipients | filter: {got_yaa_id: Resource.id} | orderBy: 'created_at':true">
+            {{Resource.name}}<span ng-if="Resource.has_responded"> said roger that.</span>
+          </p> 
+          
+              <!-- form to add recipient -->
+              <form name="recipient" ng-controller='SentGotyaaController' ng-submit="submitRecipient(recipient)" novalidate>
+                <h4>Add Recipient</h4>
+                <div class="input-box">
+                  <input ng-model="recipient.name" placeholder="Name" class="input-text" required></input>
+                  <input ng-model="recipient.phone_number" placeholder="Cell Number" ng-maxlength="10" required></input><br>
+                  <span ng-bind="recipient.name"></span><br> 
+                  <span ng-bind="recipient.phone_number"></span><br>
+                  <input class='tiny button'type="submit" id="submit" value="Add Name"/> 
+                </div>
+              </form>
+           <!--  closes out the foundation blocks  -->
+            </ul>
+          </div>
+        </ul>
+      </div>
+    </div>
+<!-- the next two divs close the foundation row -->
+
 
 
 
