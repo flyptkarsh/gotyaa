@@ -8,14 +8,14 @@
 
 
 Recipient.create(got_yaa_id: 1, name: 'Bob', phone_number: '+17149152596', message_sent: true, has_responded: true )
-Recipient.create(got_yaa_id: 1, name: 'Tod', phone_number: '+17149156596', message_sent: true, has_responded: false )
-Recipient.create(got_yaa_id: 1, name: 'Rob', phone_number: '+17149155596', message_sent: false, has_responded: false )
+Recipient.create(got_yaa_id: 1, name: 'Tod', phone_number: '+17149156596', message_sent: true, has_responded: true )
+Recipient.create(got_yaa_id: 1, name: 'Rob', phone_number: '+17149155596', message_sent: true, has_responded: true )
 Recipient.create(got_yaa_id: 2, name: 'Ted', phone_number: '+17149158596', message_sent: true, has_responded: true )
-Recipient.create(got_yaa_id: 2, name: 'Red', phone_number: '+17149155596', message_sent: false, has_responded: false )
+Recipient.create(got_yaa_id: 2, name: 'Red', phone_number: '+17149155596', message_sent: true, has_responded: true )
 Recipient.create(got_yaa_id: 2, name: 'Ben', phone_number: '+17149157596', message_sent: true, has_responded: true )
-Recipient.create(got_yaa_id: 3, name: 'Guy', phone_number: '+17149158596', message_sent: false, has_responded: false )
-Recipient.create(got_yaa_id: 3, name: 'Lou', phone_number: '+17149159596', message_sent: true, has_responded: false )
-Recipient.create(got_yaa_id: 4, name: 'Stu', phone_number: '+17149152596', message_sent: true, has_responded: false )
+Recipient.create(got_yaa_id: 3, name: 'Guy', phone_number: '+17149158596', message_sent: true, has_responded: true )
+Recipient.create(got_yaa_id: 3, name: 'Lou', phone_number: '+17149159596', message_sent: true, has_responded: true )
+Recipient.create(got_yaa_id: 4, name: 'Stu', phone_number: '+17149152596', message_sent: true, has_responded: true )
 Recipient.create(got_yaa_id: 5, name: 'Ron', phone_number: '+17149158596', message_sent: true, has_responded: true )
 
 GotYaa.create(user_id: 1, content: "My pants are on fire")

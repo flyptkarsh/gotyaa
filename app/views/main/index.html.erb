@@ -21,17 +21,16 @@
   <!-- status from database -->
 </div>
   <div ng-controller="SentGotyaaController">
-  <h2 ng-mouseover="refreshAll()" ng-cloak>GotYaa Status</h2>
+  <h2 ng-mouseover="refreshAll()" ng-cloak>Roger That Status</h2>
     <!-- gotYaas from the database -->
     <div ng-mouseover="thisGotyaa(Resource.id, Resource.content)" ng-repeat="Resource in savedGotYaas| filter:{ user_id: <%= current_user.id %>} | orderBy: 'created_at':true">
       <article class='sent'>
       <h3>{{Resource.content}}</h3>
       <button ng-click='deleteGotYaa(resource.id)'>Delete Gotyaa</button><br>
       date: {{Resource.created_at | date: format: medium}}
-      <p ng-repeat="Resource in recipients | filter: {got_yaa_id: Resource.id } | orderBy: 'created_at':true">
-        {{Resource.name}}
-        {{Resource.has_responded}}
-      </p>
+      <p ng-repeat="Resource in recipients | filter: {got_yaa_id: Resource.id} | orderBy: 'created_at':true">
+        {{Resource.name}}<span ng-if="Resource.has_responded"> said roger that.</span>
+      </p> 
       <div>
         <!-- form to add recipient -->
         <div>
