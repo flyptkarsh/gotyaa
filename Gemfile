@@ -40,6 +40,8 @@ gem 'angular-rails-templates'
 
 gem "twitter-bootstrap-rails"
 
+gem 'zurb-foundation'
+
 group :development do
   gem 'pry-rails'
 end

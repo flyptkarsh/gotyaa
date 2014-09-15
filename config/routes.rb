@@ -4,11 +4,11 @@ Rails.application.routes.draw do
   post 'twilio/message'
 
   get 'twilio/response'
-
+  put 'recipients' => 'recipients#update_all'
 
   resources :got_yaas 
   resources :recipients
- 
+  
   devise_for :users
   get 'main/index' 
   

@@ -13,8 +13,21 @@ var app = angular.module('GotyaaApp', ['ngResource', 'templates'])
   .config(['$resourceProvider', function ($resourceProvider) {}])
   // factory for making ajaxy angular calls to the message database
   .factory('GotYaas', ['$resource', function($resource) {
-    return $resource('http://igotyaa.herokuapp.com/got_yaas/:gotYaaId', {gotYaaId: '@gotYaaId'});
+    return $resource('http://9867498.ngrok.com/got_yaas/:gotYaaId', {gotYaaId: '@gotYaaId'});
   }])
+  // factory to make angular ajaxy requests to database 
+  .factory('Recipients', ['$resource', function($resource) {
+   // makes HTTP request to the server 
+   return $resource('http://9867498.ngrok.com/recipients/:id', {id: '@id'});
+  }])
+  .factory('TwilioMessage', ['$resource', function($resource) {
+   // makes HTTP request to the server 
+   return $resource('http://9867498.ngrok.com/twilio/message');
+  }])
+  .factory('TwilioResponse', ['$resource', function($resource) {
+   // makes HTTP request to the server 1
+   return $resource('http://9867498.ngrok.com/twilio/response');
+  }]) 
   // controls adding the message and creating a new gotyaa 
   .controller('GotyaaController', ['$scope', 'Recipients','GotYaas', function($scope, Recipients, GotYaas, TwilioMessage) {
     $scope.messagesPending = [];
@@ -41,23 +54,9 @@ var app = angular.module('GotyaaApp', ['ngResource', 'templates'])
       newGotyaa.$save();
       $scope.messagesPending = [];  
     };
-  }])
-
-  // factory to make angular ajaxy requests to database 
-  .factory('Recipients', ['$resource', function($resource) {
-   // makes HTTP request to the server 
-   return $resource('http://igotyaa.herokuapp.com/recipients');
-  }])
-  .factory('TwilioMessage', ['$resource', function($resource) {
-   // makes HTTP request to the server 
-   return $resource('http://igotyaa.herokuapp.com/twilio/message');
-  }])
-  .factory('TwilioResponse', ['$resource', function($resource) {
-   // makes HTTP request to the server 1
-   return $resource('http://igotyaa.herokuapp.com/twilio/response');
-  }])     
+  }])    
   // makes a get request to the back-end for message status, displays status
-  .controller('SentGotyaaController', ['$scope', 'Recipients','GotYaas', '$interval', 'TwilioMessage', 'TwilioResponse', function($scope, Recipients, GotYaas, $interval, TwilioMessage, TwilioResponse) { 
+  .controller('SentGotyaaController', ['$scope', 'Recipients','GotYaas', '$http', 'TwilioMessage', 'TwilioResponse', function($scope, Recipients, GotYaas, $http, TwilioMessage, TwilioResponse) { 
     
     // pulls the sent gotYaas from the database
     $scope.refreshGotYaas = function(){
@@ -71,13 +70,21 @@ var app = angular.module('GotyaaApp', ['ngResource', 'templates'])
     $scope.refreshRecipients = function(){
       console.log('refresh recipients'); 
       $scope.recipients = Recipients.query(function(recipients){
-
       return recipients 
       }); 
-    }
+    }; 
+
+    $scope.updateRecipients = function() {
+      $http.put("/recipients"); 
+      console.log('updateRecipients triggered'); 
+    };  
+
+    $scope.updateRecipients(); 
+
     $scope.refreshAll = function() {
       $scope.refreshRecipients(); 
       $scope.refreshGotYaas();
+      $scope.updateRecipients(); 
     }; 
 
     $scope.refreshRecipients(); 

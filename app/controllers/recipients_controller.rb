@@ -1,5 +1,5 @@
 class RecipientsController < ApplicationController
-  protect_from_forgery :except => [:index, :create]
+  protect_from_forgery :except => [:index, :create, :update_all]
   def index
     render json: Recipient.all
   end
@@ -13,8 +13,29 @@ class RecipientsController < ApplicationController
     render json: @recipient.to_json, status: 200 if @recipient.save
   end
 
-  def update
-    render json: @recipient.to_json, status: 200 if @recipient.update(recipient_params)
+  def update_all
+    @recipients = Recipient.all
+    @responses = [] 
+    account_sid = ENV["TWILIO_SID"]
+    auth_token = ENV["TWILIO_TOKEN"]
+    # set up a client to talk to the Twilio REST API 
+    @client = Twilio::REST::Client.new account_sid, auth_token 
+    @client.account.messages.list({ to: '+16467621226'}).each do |message| 
+    @responses.push(message.from)
+    end
+
+     @responses.each do |fromNumber|   
+      @recipients.each do |recipient|
+        if recipient.phone_number == fromNumber
+          recipient_to_update = Recipient.find_by(id: recipient.id) 
+          recipient_to_update.has_responded = true
+          recipient_to_update.save 
+        end 
+      end 
+    end 
+
+    render json: @recipients.to_json
+
   end
 
   def destroy
