@@ -38,8 +38,6 @@ gem 'angularjs-rails'
 
 gem 'angular-rails-templates'
 
-gem "twitter-bootstrap-rails"
-
 gem 'foundation-rails'
 
 group :development do
