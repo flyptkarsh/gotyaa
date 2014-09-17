@@ -7,7 +7,7 @@
     <p class="alert"><%= alert %></p>
     <%= stylesheet_link_tag    "application", media: "all" %>
     <%= javascript_include_tag "application" %>
-    <title><%= content_for?(:title) ? yield(:title) : "foundation-rails" %></title>
+    <title><%= content_for?(:title) ? yield(:title) : "Roger That" %></title>
 
     <%= stylesheet_link_tag    "application" %>
     <%= javascript_include_tag "vendor/modernizr" %>
@@ -29,7 +29,7 @@
           <li class="divider"></li>
           <li><%= link_to('View Roger Thats', main_index_path) %></li>
           <li class="divider"></li>
-          <li><%= link_to('Logout', destroy_user_session_path, :method => :destroy, redirect_to: welcome_index_path )%></li>
+          <li><%= link_to('Logout', destroy_user_session_path, :method => :delete, redirect_to: welcome_index_path)%></li>
         <% else %>
           <li class="divider"></li>
           <li><%= link_to('Register', new_user_registration_path)%></li>
