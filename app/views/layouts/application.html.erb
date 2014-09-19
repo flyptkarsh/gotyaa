@@ -5,12 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
-    <%= stylesheet_link_tag    "application", media: "all" %>
-    <%= javascript_include_tag "application" %>
     <title><%= content_for?(:title) ? yield(:title) : "Roger That" %></title>
-
+    <%= stylesheet_link_tag    "application", media: "all" %>
     <%= stylesheet_link_tag    "application" %>
     <%= javascript_include_tag "vendor/modernizr" %>
+    <%= javascript_include_tag "application" %>
     <%= csrf_meta_tags %>
   </head>
 
@@ -43,7 +42,7 @@
     <div class="small-4 columns">
     <h2>About Roger That</h2><p>Roger That allows you to notify a group of something very important and track who received and acknowledged the message.</p>
     <%= yield %>
-    <%= javascript_include_tag "application" %>
+    
   </body>
 </html>
  
